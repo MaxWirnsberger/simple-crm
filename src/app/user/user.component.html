@@ -1,6 +1,34 @@
-<p>user works!</p>
+<mat-card>
+  <mat-card-content>
+    <table class="user-table">
+      <tr>
+        <th>Name</th>
+        <th>E-Mail</th>
+        <th>City</th>
+      </tr>
+      <!-- <tr>
+        <td>asdfjhsdf</td>
+        <td>asdfasdf</td>
+        <td>asdfasdf</td>
+      </tr> -->
 
+      <tr *ngFor="let user of userService.allUsers">
+        <td>{{ user.firstName }} {{ user.lastName }}</td>
+        <td>{{ user.street }}</td> 
+        <td>{{ user.city }}</td>
+      </tr>
 
-<button (click)="openDialog()" class="add-user-btn" mat-fab color="primary" matTooltip="Add User" [matTooltipPosition]="'above'">
-    <mat-icon>add</mat-icon>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+<button
+  (click)="openDialog()"
+  class="add-user-btn"
+  mat-fab
+  color="primary"
+  matTooltip="Add User"
+  [matTooltipPosition]="'above'"
+>
+  <mat-icon>add</mat-icon>
 </button>

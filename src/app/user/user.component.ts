@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
-import { User } from '../../models/user.class';
-
+import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute } from '@angular/router';
+import { NgFor } from '@angular/common';
+import { FirebaseServiceService } from '../firebase.service';
 
 @Component({
   selector: 'app-user',
@@ -16,14 +18,20 @@ import { User } from '../../models/user.class';
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
+    MatCardModule,
+    NgFor
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
-export class UserComponent {
-  user: User = new User();
 
-  constructor(public dialog: MatDialog) {}
+export class UserComponent implements OnInit{  
+
+  constructor(public userService: FirebaseServiceService, private route: ActivatedRoute, public dialog: MatDialog) {}
+
+   ngOnInit() {
+    this.userService.getData()
+  }
 
   openDialog() {
     this.dialog.open(DialogAddUserComponent);

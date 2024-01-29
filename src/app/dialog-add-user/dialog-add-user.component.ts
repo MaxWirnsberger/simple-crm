@@ -4,14 +4,21 @@ import {
   MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import { User } from '../../models/user.class';
-import { FormsModule} from '@angular/forms';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+import { inject } from '@angular/core';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { NgIf } from '@angular/common';
+import { UserComponent } from '../user/user.component';
+import { FirebaseServiceService } from '../firebase.service';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -26,17 +33,22 @@ import { FormsModule} from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    FormsModule
+    FormsModule,
+    MatProgressBarModule,
+    NgIf,
+    UserComponent,
   ],
   templateUrl: './dialog-add-user.component.html',
   styleUrl: './dialog-add-user.component.scss',
 })
 export class DialogAddUserComponent {
-  user: User = new User();
-  birthDate!: Date;
 
-  saveUser(){
-    this.user.birthDate = this.birthDate.getTime()
-    console.log('Current User is', this.user)
+  constructor(public userService: FirebaseServiceService, public dialogRef: MatDialogRef<DialogAddUserComponent>) {}
+  firestore: Firestore = inject(Firestore);
+
+  saveUser() {
+    this.userService.saveUserService()
+    this.dialogRef.close();
+    this.userService.getData()
   }
 }
