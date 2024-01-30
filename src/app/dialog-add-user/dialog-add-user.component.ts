@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MatDialogTitle,
   MatDialogContent,
@@ -14,11 +14,10 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { inject } from '@angular/core';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { NgIf } from '@angular/common';
 import { UserComponent } from '../user/user.component';
 import { FirebaseServiceService } from '../firebase.service';
+import { Firestore, collection, doc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -42,13 +41,14 @@ import { FirebaseServiceService } from '../firebase.service';
   styleUrl: './dialog-add-user.component.scss',
 })
 export class DialogAddUserComponent {
-
-  constructor(public userService: FirebaseServiceService, public dialogRef: MatDialogRef<DialogAddUserComponent>) {}
-  firestore: Firestore = inject(Firestore);
+  constructor(
+    public userService: FirebaseServiceService,
+    public dialogRef: MatDialogRef<DialogAddUserComponent>
+  ) {}
 
   saveUser() {
-    this.userService.saveUserService()
+    this.userService.saveUserService();
     this.dialogRef.close();
-    this.userService.getData()
+    this.userService.getData();
   }
 }

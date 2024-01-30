@@ -6,9 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { FirebaseServiceService } from '../firebase.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -19,15 +19,15 @@ import { FirebaseServiceService } from '../firebase.service';
     MatTooltipModule,
     MatDialogModule,
     MatCardModule,
-    NgFor
+    NgFor,
+    RouterLink
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
 
 export class UserComponent implements OnInit{  
-
-  constructor(public userService: FirebaseServiceService, private route: ActivatedRoute, public dialog: MatDialog) {}
+  constructor(public userService: FirebaseServiceService, public dialog: MatDialog) {}
 
    ngOnInit() {
     this.userService.getData()

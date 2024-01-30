@@ -1,11 +1,11 @@
-<h1 mat-dialog-title>Add User</h1>
+<h1 mat-dialog-title>Edit User</h1>
 <div mat-dialog-content>
   <div>
     <mat-form-field class="mr-16" appearance="outline">
       <mat-label>First Name</mat-label>
       <input
         [disabled]="userService.loading"
-        [(ngModel)]="userService.user.firstName"
+        [(ngModel)]="user.firstName"
         matInput
         placeholder="Fist Name"
       />
@@ -15,7 +15,7 @@
       <mat-label>Last Name</mat-label>
       <input
         [disabled]="userService.loading"
-        [(ngModel)]="userService.user.lastName"
+        [(ngModel)]="user.lastName"
         matInput
         placeholder="Last Name"
       />
@@ -26,7 +26,7 @@
         <mat-label>E-Mail</mat-label>
         <input
           [disabled]="userService.loading"
-          [(ngModel)]="userService.user.email"
+          [(ngModel)]="user.email"
           matInput
           placeholder="E-Mail-Address"
         />
@@ -38,7 +38,7 @@
         <mat-label>Birth Date</mat-label>
         <input
           [disabled]="userService.loading"
-          [(ngModel)]="userService.birthDate"
+          [(ngModel)]="user.birthDate"
           matInput
           placeholder="Your Birthday"
           [matDatepicker]="picker1"
@@ -56,7 +56,7 @@
         <mat-label>Street + House No.</mat-label>
         <input
           [disabled]="userService.loading"
-          [(ngModel)]="userService.user.street"
+          [(ngModel)]="user.street"
           matInput
           placeholder="Your Street"
         />
@@ -67,7 +67,7 @@
         <mat-label>Zip code</mat-label>
         <input
           [disabled]="userService.loading"
-          [(ngModel)]="userService.user.zipCode"
+          [(ngModel)]="user.zipCode"
           matInput
           placeholder="Zip-Code"
         />
@@ -77,7 +77,7 @@
         <mat-label>City</mat-label>
         <input
           [disabled]="userService.loading"
-          [(ngModel)]="userService.user.city"
+          [(ngModel)]="user.city"
           matInput
           placeholder="City"
         />
@@ -90,7 +90,7 @@
   <button
     [disabled]="userService.loading"
     mat-button
-    (click)="saveUser()"
+    (click)="updateUser()"
     cdkFocusInitial
   >
     Save

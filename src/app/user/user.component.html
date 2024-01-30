@@ -6,15 +6,10 @@
         <th>E-Mail</th>
         <th>City</th>
       </tr>
-      <!-- <tr>
-        <td>asdfjhsdf</td>
-        <td>asdfasdf</td>
-        <td>asdfasdf</td>
-      </tr> -->
 
-      <tr *ngFor="let user of userService.allUsers">
+      <tr *ngFor="let user of userService.allUsers" [routerLink]="[user.id]">
         <td>{{ user.firstName }} {{ user.lastName }}</td>
-        <td>{{ user.street }}</td> 
+        <td>{{ user.email }}</td> 
         <td>{{ user.city }}</td>
       </tr>
 

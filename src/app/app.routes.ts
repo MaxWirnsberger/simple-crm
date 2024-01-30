@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 export const routes: Routes = [
     {path: '', component: DashboardComponent},
     {path: 'users', component: UserComponent},
+    {path: 'users/:id', component : UserDetailComponent},
 ];

@@ -3,14 +3,15 @@ import {
   Firestore,
   addDoc,
   collection,
-  getDocs
+  doc,
+  getDocs,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class FirebaseServiceService {
   loading: boolean = false;
   firestore: Firestore = inject(Firestore);
@@ -31,21 +32,38 @@ export class FirebaseServiceService {
     });
   }
 
-  async getData(){
+  async getData() {
     this.allUsers = [];
     this.querySnapshot = await getDocs(collection(this.firestore, 'users'));
     this.querySnapshot.forEach((user: any) => {
-      this.allUsers.push(user.data() as UserData) 
+      let userData: UserData = user.data();
+      userData.id = user.id;
+      this.allUsers.push(userData as UserData);
     });
+  }
+
+  async updateUserService(editUser: any, editUserId: string) {
+    this.loading = true;
+    await updateDoc(
+      this.getSingleRef(editUserId),
+      JSON.parse(JSON.stringify(editUser))
+    ).then(() => {
+      this.loading = false;
+    });
+  }
+
+  getSingleRef(editUserId: string) {
+    return doc(collection(this.firestore, 'users'), editUserId);
   }
 }
 
-
 interface UserData {
-    firstName: string;
-    lastName: string;
-    birthDate: number;
-    street: string;
-    zipCode: string;
-    city: string;
-  }
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthDate: number;
+  street: string;
+  zipCode: string;
+  city: string;
+  id: string;
+}
